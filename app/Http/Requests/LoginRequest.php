@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class LoginRequest extends FormRequest
 {
@@ -23,16 +25,22 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|unique:users,email|max:255',
+            'email' => 'required|string|email|exists:users,email|max:255',
             'password' => [
                 'required',
-                'confirmed',
                 Password::min(8)
                 ->letters()
                 ->numbers()
                 ->symbols()
             ]
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'message' => 'validation error',
+            'errors' => $validator->errors()
+        ], 422));
     }
 }
