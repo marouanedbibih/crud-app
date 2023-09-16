@@ -52,5 +52,18 @@ services:
       - nginx
       - mysql
   
-
+  # redis:
+  #   image: redis:7.2.1-alpine3.18
+  #   container_name: redis_crud
+  #   command: redis-server  --requirepass password
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - crud
+  #   volumes:
+  #     - "./redis:/data"
+  #   depends_on:
+  #     - nginx
+  #     - mysql
+  #     - php
   
