@@ -1,0 +1,56 @@
+version: '3.9'
+# create a network
+networks:
+  crud:
+
+# create services or container 
+services:
+  # nginx configuration
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx_crud
+    ports:
+      - "8000:80"
+    volumes:
+      - "../backend:/var/www/html"
+      - "./nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
+    networks:
+      - crud
+  # mysql and database configuration
+  mysql:
+    image: mysql:8
+    container_name: mysql_crud
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql:/var/lib/mysql"
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_DATABASE: crud_db
+      # MYSQL_USERNAME: root
+      # MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_SERVICE_TAG: dev
+      MYSQL_SERVICE_NAME: mysql
+    networks:
+      - crud
+    depends_on:
+      - nginx
+  php:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: php_crud
+    ports:
+      - "9000:9000"
+    volumes:
+      - "../backend:/var/www/html"     
+    networks:
+      - crud
+    depends_on:
+      - nginx
+      - mysql
+  
+
+  
