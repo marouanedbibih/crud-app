@@ -3,13 +3,17 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext({
   user: null,
   token: null,
+  notification:null,
   setUser: () => {},
   setAccessToken: () => {},
+  displayNotification: ()=>{}
 });
 
 export const ContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState(localStorage.getItem("ACCESS_TOKEN"));
+  const [notification, setNotification] = useState('');
+
 
   const setAccessToken = (accessToken) => {
     setToken(accessToken);
@@ -20,12 +24,22 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  const displayNotification = message => {
+    setNotification(message);
+
+    setTimeout(() => {
+      setNotification('')
+    }, 5000)
+  }
+
   return(
     <AuthContext.Provider value={{
         user,
         setUser,
         token,
         setAccessToken,
+        notification,
+        displayNotification
     }}>
         {children}
 
