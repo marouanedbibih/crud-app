@@ -22,7 +22,7 @@ function Login() {
     axiosClient
       .post("/login", payload)
       .then(({ data }) => {
-        setUser(data.user);
+        setUser(data.data);
         setAccessToken(data.token);
         setMessage(null); // Clear the error message on successful login
         setErrors(null); // Clear the validation errors on successful login

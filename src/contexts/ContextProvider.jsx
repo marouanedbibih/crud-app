@@ -15,8 +15,8 @@ export const ContextProvider = ({ children }) => {
   const [notification, setNotification] = useState('');
 
 
-  const setAccessToken = (accessToken) => {
-    setToken(accessToken);
+  const setAccessToken = (token) => {
+    setToken(token);
     if (token) {
       localStorage.setItem("ACCESS_TOKEN", token);
     } else {
