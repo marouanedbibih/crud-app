@@ -30,10 +30,6 @@ const routes = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "/",
-        element: <Navigate to="/users" />,
-      },
-      {
         path: "/users",
         element: <User />,
       },
