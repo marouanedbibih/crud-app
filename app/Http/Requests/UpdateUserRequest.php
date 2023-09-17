@@ -23,28 +23,32 @@ class UpdateUserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
+
     public function rules(): array
     {
         $userId = $this->route('users');
+    
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'email' => [
-                'nullable',
-                'string',
+                'required',
                 'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($userId),
+                Rule::unique('users', 'email')->where(function ($query) use ($userId) {
+                    return $query->where('id', $userId);
+                }),
             ],
             'password' => [
                 'nullable',
                 'confirmed',
                 Password::min(8)
-                ->letters()
-                ->numbers()
-                ->symbols()
-            ]
+                    ->letters()
+                    ->numbers()
+                    ->symbols(),
+            ],
         ];
     }
+    
+    
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
