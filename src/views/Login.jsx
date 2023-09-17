@@ -59,7 +59,7 @@ function Login() {
           )}
 
           <input ref={emailRef} type="email" placeholder="Email" />
-          <input ref={passwordRef} type="text" placeholder="Password" />
+          <input ref={passwordRef} type="password" placeholder="Password" />
           <button className="btn btn-block">Login</button>
           <p className="message">
             Not registered? <Link to="/signup">Create an account</Link>
