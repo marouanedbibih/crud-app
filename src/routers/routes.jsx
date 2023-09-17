@@ -3,8 +3,9 @@ import GuestLayout from "../layouts/GuestLayout";
 import Login from "../views/Login";
 import Signup from "../views/Signup";
 import DashboardLayout from "../layouts/DashboardLayout";
-import User from "../views/User";
 import NotFound from "../views/NotFound";
+import Users from "../views/Users";
+import UserForm from "../views/UserForm";
 
 const routes = createBrowserRouter([
   {
@@ -31,7 +32,15 @@ const routes = createBrowserRouter([
     children: [
       {
         path: "/users",
-        element: <User />,
+        element: <Users />,
+      },
+      {
+        path: "/users/new",
+        element: <UserForm key="userCreate" />,
+      },
+      {
+        path: "/users/:id",
+        element: <UserForm key="userUpdate" />,
       },
     ],
   },

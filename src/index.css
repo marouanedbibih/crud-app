@@ -241,3 +241,32 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+
+/* Pagination container */
+.pagination {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    margin-top: 20px; /* Add margin for spacing */
+}
+
+/* Pagination buttons */
+.page-button {
+    background-color: #5b08a7;
+    color: #FFFFFF;
+    border: 0;
+    padding: 10px 15px;
+    margin: 0 5px; /* Add some spacing between buttons */
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-button.active {
+    background-color: #00a762;
+}
+
+.page-button:hover {
+    background-color: #00a762;
+}
+
