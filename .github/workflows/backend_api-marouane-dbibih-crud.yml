@@ -32,7 +32,7 @@ jobs:
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
       - name: Zip the application files
-          run: zip -r release.zip ./*
+        run: zip -r release.zip ./*
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -54,7 +54,7 @@ jobs:
           name: php-app
       
       - name: Unzip artifact
-          run: unzip  release.zip
+        run: unzip  release.zip
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
